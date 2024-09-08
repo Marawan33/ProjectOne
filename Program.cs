@@ -14,9 +14,40 @@ namespace MVCDemo
                     await context.Response.WriteAsync("You are At Home Page");
                 }
                 );
-                endpoints.MapGet("/products", async context =>
+
+
+
+
+
+                endpoints.MapGet("/products/{ID:int?}", async context =>
                 {
-                    await context.Response.WriteAsync("You Are At Products Page");
+                    var id = context.Request.RouteValues["ID"];
+                    if (id == null)
+                    {
+                        await context.Response.WriteAsync("You Are At Products Page");
+
+                    }
+                    else
+                    {
+                        
+                        await context.Response.WriteAsync($"You Are At Products Page ID = {id}");
+
+                    }
+                }
+                );
+
+
+
+
+
+
+
+
+                endpoints.MapGet("/Books/{ID}/{Author}", async context =>
+                {
+                    int id = Convert.ToInt32(context.Request.RouteValues["ID"]);
+                    string name = context.Request.RouteValues["Author"].ToString();
+                    await context.Response.WriteAsync($"You Are At Books Page Book ID = {id} , Author name is : {name}");
                 }
                 );
             });
